@@ -1,9 +1,17 @@
 Partytronic::Application.routes.draw do
+
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+
   root to: 'static_pages#home'
 
+
+  match '/signin', to: 'sessions#create'
   match '/about', to: 'static_pages#about'
   match '/help', to: 'static_pages#help'
   match '/contact', to: 'static_pages#contact'
+  match '/auth/facebook/callback', to: 'users#callback'
+  match '/signout', to: 'sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
